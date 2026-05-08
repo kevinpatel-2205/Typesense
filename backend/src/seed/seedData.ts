@@ -1,76 +1,11 @@
-// import { PrismaClient, Prisma } from '@prisma/client';
-// import { faker } from '@faker-js/faker';
-
-// const prisma = new PrismaClient();
-
-// const TOTAL_RECORDS = 10000000; // 1 crore
-// const BATCH_SIZE = 10000;
-
-// async function seed() {
-//   console.log('🌱 Seeding started...');
-
-//   let inserted = 0;
-
-//   while (inserted < TOTAL_RECORDS) {
-//     const data: Prisma.PlaceCreateManyInput[] = [];
-
-//     for (let i = 0; i < BATCH_SIZE; i++) {
-//       data.push({
-//         name: faker.company.name(),
-//         description: faker.lorem.paragraph(),
-//         category: faker.helpers.arrayElement([
-//           'Restaurant',
-//           'Hotel',
-//           'Cafe',
-//           'Hospital',
-//           'School',
-//           'Store',
-//         ]),
-//         status: faker.helpers.arrayElement([
-//           'ACTIVE',
-//           'INACTIVE',
-//           'PENDING',
-//         ]),
-//         location: faker.location.city(),
-//         tags: JSON.stringify([
-//           faker.word.noun(),
-//           faker.word.adjective(),
-//           faker.word.verb(),
-//         ]),
-//         createdDate: faker.date.recent(),
-//       });
-//     }
-
-//     await prisma.place.createMany({
-//       data,
-//     });
-
-//     inserted += BATCH_SIZE;
-
-//     console.log(`✅ Inserted: ${inserted.toLocaleString()} records`);
-//   }
-
-//   console.log('🎉 Seeding completed');
-// }
-
-// seed()
-//   .catch((e) => {
-//     console.error('❌ Error while seeding:', e);
-//   })
-//   .finally(async () => {
-//     await prisma.$disconnect();
-//   });
-
-
-
 import { PrismaClient, Prisma } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
-const TOTAL_RECORDS = 10000000;   // 1 crore target
+const TOTAL_RECORDS = 10000000;
 const BATCH_SIZE = 10000;
-const ALREADY_INSERTED = 6930000; // already done — resume from here
+const ALREADY_INSERTED = 6930000;
 
 async function seed() {
   console.log('🌱 Resuming seed from', ALREADY_INSERTED.toLocaleString(), '...');
@@ -88,18 +23,9 @@ async function seed() {
         name: faker.company.name(),
         description: faker.lorem.paragraph(),
         category: faker.helpers.arrayElement([
-          'Restaurant',
-          'Hotel',
-          'Cafe',
-          'Hospital',
-          'School',
-          'Store',
+          'Restaurant', 'Hotel', 'Cafe', 'Hospital', 'School', 'Store',
         ]),
-        status: faker.helpers.arrayElement([
-          'ACTIVE',
-          'INACTIVE',
-          'PENDING',
-        ]),
+        status: faker.helpers.arrayElement(['ACTIVE', 'INACTIVE', 'PENDING']),
         location: faker.location.city(),
         tags: JSON.stringify([
           faker.word.noun(),

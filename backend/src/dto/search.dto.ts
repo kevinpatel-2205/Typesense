@@ -18,17 +18,17 @@ export class SearchDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value?.trim())
-  category?: string; // comma-separated: Restaurant,Hotel
+  category?: string;
 
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value?.trim())
-  status?: string; // comma-separated: ACTIVE,INACTIVE
+  status?: string;
 
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value?.trim())
-  tags?: string; // comma-separated: tag1,tag2
+  tags?: string;
 
   @IsOptional()
   @IsString()
@@ -56,7 +56,6 @@ export class SearchDto {
   @Max(250)
   limit?: number = 20;
 
-  // ── Only allow known sortable fields to prevent injection ──────────────────
   @IsOptional()
   @IsIn(['createdDate', 'name', '_text_match'])
   sortBy?: string = 'createdDate';
@@ -65,7 +64,6 @@ export class SearchDto {
   @IsIn(['asc', 'desc'])
   sortOrder?: 'asc' | 'desc' = 'desc';
 
-  // ── When true, response includes highlighted snippets ──────────────────────
   @IsOptional()
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
