@@ -80,13 +80,37 @@ export class TypesenseService {
 
     const t0 = Date.now();
 
+    // const result = await this.client
+    //   .collections('places')
+    //   .documents()
+    //   .search({
+    //     q: hasQuery ? q!.trim() : '*',
+    //     query_by: hasQuery ? 'name,location,tags' : 'name',
+    //     query_by_weights: hasQuery ? '3,2,1' : undefined,
+    //     prefix: hasQuery ? 'true' : 'false',
+    //     num_typos: numTypos,
+    //     infix: infixValue,
+    //     filter_by: filters.length ? filters.join(' && ') : undefined,
+    //     sort_by: sortString,
+    //     page: safePage,
+    //     per_page: safeLimit,
+    //     highlight_fields: highlight ? 'name,location' : 'none',
+    //     highlight_affix_num_tokens: 4,
+    //     highlight_start_tag: '<mark>',
+    //     highlight_end_tag: '</mark>',
+    //     include_fields: 'mysqlId,name,category,status,location,tags,createdDate',
+    //     exhaustive_search: false,
+    //     use_cache: true,
+    //     cache_ttl: 60,
+    //   } as any);
+
     const result = await this.client
       .collections('places')
       .documents()
       .search({
         q: hasQuery ? q!.trim() : '*',
         query_by: hasQuery ? 'name,location,tags' : 'name',
-        query_by_weights: hasQuery ? '3,2,1' : undefined,
+        query_by_weights: hasQuery ? '5,2,1' : undefined,
         prefix: hasQuery ? 'true' : 'false',
         num_typos: numTypos,
         infix: infixValue,
@@ -94,18 +118,18 @@ export class TypesenseService {
         sort_by: sortString,
         page: safePage,
         per_page: safeLimit,
-        highlight_fields: highlight ? 'name,location' : 'none',
+        highlight_fields: highlight ? 'name,location' : undefined,
         highlight_affix_num_tokens: 4,
         highlight_start_tag: '<mark>',
         highlight_end_tag: '</mark>',
-        include_fields: 'mysqlId,name,category,status,location,tags,createdDate',
+        include_fields:
+          'mysqlId,name,category,status,location,tags,createdDate',
         exhaustive_search: false,
         use_cache: true,
         cache_ttl: 60,
       } as any);
 
     const queryTimeMs = Date.now() - t0;
-
     return {
       meta: {
         totalRecords: result.found,

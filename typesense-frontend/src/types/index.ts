@@ -36,4 +36,8 @@ export interface SearchState {
   meta: Meta | null;
   loading: boolean;
   error: string | null;
+
+  addLoading: boolean;
+  addError: string | null;
+  addSuccess: boolean;
 }
